@@ -41,9 +41,9 @@ public class ArvoreBinariaBuilder {
 
 	public ArvoreBinariaBusca montaArvoreRaizDoisFilhoDireitoUmEsquerdo() {
 		No noH = new No(new Contato("H","8"), null, null);
-		No noG = new No(new Contato("G","7"), noH, null);
+		No noG = new No(new Contato("G","7"), null, noH);
 		No noC = new No(new Contato("C","3"), null, null);
-		No noE = new No(new Contato("E","5"), noG, noC);
+		No noE = new No(new Contato("E","5"), noC, noG);
 
 		arvore = new ArvoreBinariaBusca();
 		arvore.setRaiz(noE);

@@ -34,5 +34,4 @@ public class Contato {
 	public void setCod(int cod) {
 		this.cod = cod;
 	}
-	
 }

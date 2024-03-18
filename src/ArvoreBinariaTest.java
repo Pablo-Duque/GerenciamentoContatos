@@ -1,5 +1,3 @@
-package abb;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +20,8 @@ class ArvoreBinariaTest {
 
 	@Test
 	void deveRetornarNaoEhVaziaComRaiz() {
-		No noUm = new No(1, null, null);
-		arvore.setRaiz(noUm);
+		No noA = new No(new Contato("A","1"), null, null);
+		arvore.setRaiz(noA);
 
 		assertFalse(arvore.ehVazia());
 	}
@@ -108,9 +106,9 @@ class ArvoreBinariaTest {
 	void deveRetornarAlturaSubNosComElementos() {
 
 		arvore = builder.montaArvoreCheiaDoisNiveis();
-		No noTres = arvore.getRaiz().getEsquerdo();
+		No noC = arvore.getRaiz().getEsquerdo();
 
-		assertEquals(1, arvore.pegaAlturaDoNo(noTres));
+		assertEquals(1, arvore.pegaAlturaDoNo(noC));
 	}
 
 	@Test
@@ -163,65 +161,65 @@ class ArvoreBinariaTest {
 	@Test
 	void deveRetornarNullSePegarNoArvoreVazia() {
 		arvore = builder.montaArvoreVazia();
-		assertNull(arvore.pegarNoArvorePorValor(20));
+		assertNull(arvore.pegarNoArvorePorNome("Z"));
 	}
 
 	@Test
 	void deveRetornarNullSePegarNoNaoExistente() {
 		arvore = builder.montaArvoreSoRaiz();
-		assertNull(arvore.pegarNoArvorePorValor(20));
+		assertNull(arvore.pegarNoArvorePorNome("Z"));
 
 		arvore = builder.montaArvoreCheiaDoisNiveis();
-		assertNull(arvore.pegarNoArvorePorValor(20));
+		assertNull(arvore.pegarNoArvorePorNome("Z"));
 	}
 
 	@Test
 	void deveRetornarNoSePegarRaiz() {
 		arvore = builder.montaArvoreSoRaiz();
 
-		No noRetornado = arvore.pegarNoArvorePorValor(5);
+		No noRetornado = arvore.pegarNoArvorePorNome("E");
 
 		assertNotNull(noRetornado);
-		assertEquals(5, noRetornado.getValor());
+		assertEquals("E", noRetornado.getNome());
 	}
 
 	@Test
 	void deveRetornarNoSePegarOutroElemento() {
 		arvore = builder.montaArvoreCheiaDoisNiveis();
 
-		No noRetornado = arvore.pegarNoArvorePorValor(3);
+		No noRetornado = arvore.pegarNoArvorePorNome("C");
 
 		assertNotNull(noRetornado);
-		assertEquals(3, noRetornado.getValor());
+		assertEquals("C", noRetornado.getNome());
 	}
 
 	@Test
 	void deveRetornarFalseContemArvoreVazia() {
 		arvore = builder.montaArvoreVazia();
-		assertFalse(arvore.contem(20));
+		assertFalse(arvore.contem("Z"));
 	}
 
 	@Test
 	void deveRetornarFalseContemNoNaoExistente() {
 		arvore = builder.montaArvoreSoRaiz();
-		assertFalse(arvore.contem(20));
+		assertFalse(arvore.contem("Z"));
 
 		arvore = builder.montaArvoreCheiaDoisNiveis();
-		assertFalse(arvore.contem(20));
+		assertFalse(arvore.contem("Z"));
 	}
 
 	@Test
 	void deveRetornarTrueContemSoRaiz() {
 		arvore = builder.montaArvoreSoRaiz();
-		assertTrue(arvore.contem(5));
+		assertTrue(arvore.contem("E"));
 	}
 
 	@Test
 	void deveRetornarNoComtemOutroElemento() {
 		arvore = builder.montaArvoreCheiaDoisNiveis();
-		assertTrue(arvore.contem(3));
-		assertTrue(arvore.contem(4));
-		assertTrue(arvore.contem(1));
+		assertTrue(arvore.contem("C"));
+		assertTrue(arvore.contem("D"));
+		assertTrue(arvore.contem("A"));
 	}
 
 
@@ -229,22 +227,22 @@ class ArvoreBinariaTest {
 	void adicionarNoArvoreVazia() {
 		arvore = builder.montaArvoreVazia();
 
-		arvore.adicionaNo(5);
+		arvore.adicionaNo("E", "5");
 
 		assertEquals(0, arvore.pegaAlturaDaArvore());
-		assertEquals(5, arvore.getRaiz().getValor());
-		assertTrue(arvore.contem(5));
+		assertEquals("E", arvore.getRaiz().getNome());
+		assertTrue(arvore.contem("E"));
 	}
 
 	@Test
 	void adicionarNoArvoreSoRaiz() {
 		arvore = builder.montaArvoreSoRaiz();
 
-		arvore.adicionaNo(7);
+		arvore.adicionaNo("G", "7");
 
 		assertEquals(1, arvore.pegaAlturaDaArvore());
-		assertEquals(5, arvore.getRaiz().getValor());
-		assertTrue(arvore.contem(7));
+		assertEquals("E", arvore.getRaiz().getNome());
+		assertTrue(arvore.contem("G"));
 	}
 
 	@Test
@@ -252,11 +250,11 @@ class ArvoreBinariaTest {
 
 		arvore = builder.montaArvoreRaizFilhoDireito();
 
-		arvore.adicionaNo(3);
+		arvore.adicionaNo("C", "3");
 
 		assertEquals(1, arvore.pegaAlturaDaArvore());
-		assertEquals(5, arvore.getRaiz().getValor());
-		assertTrue(arvore.contem(3));
+		assertEquals("E", arvore.getRaiz().getNome());
+		assertTrue(arvore.contem("C"));
 	}
 
 	@Test
@@ -264,11 +262,11 @@ class ArvoreBinariaTest {
 
 		arvore = builder.montaArvoreRaizFilhoEsquerdo();
 
-		arvore.adicionaNo(7);
+		arvore.adicionaNo("G", "7");
 
 		assertEquals(1, arvore.pegaAlturaDaArvore());
-		assertEquals(5, arvore.getRaiz().getValor());
-		assertTrue(arvore.contem(7));
+		assertEquals("E", arvore.getRaiz().getNome());
+		assertTrue(arvore.contem("G"));
 	}
 
 	@Test
@@ -276,19 +274,19 @@ class ArvoreBinariaTest {
 
 		arvore = builder.montaArvoreCheiaDoisNiveis();
 
-		arvore.adicionaNo(2);
+		arvore.adicionaNo("B", "2");
 
 		assertEquals(3, arvore.pegaAlturaDaArvore());
-		assertEquals(5, arvore.getRaiz().getValor());
-		assertTrue(arvore.contem(2));
+		assertEquals("E", arvore.getRaiz().getNome());
+		assertTrue(arvore.contem("B"));
 	}
 
 	@Test
 	void removerNoArvoreSoRaizValorExiste() {
 		arvore = builder.montaArvoreSoRaiz();
 
-		arvore.removeNoPorValor(5);
-		assertFalse(arvore.contem(5));
+		arvore.removeNoPorNome("E");
+		assertFalse(arvore.contem("E"));
 		assertNull(arvore.getRaiz());
 	}
 	
@@ -296,8 +294,8 @@ class ArvoreBinariaTest {
 	void removerNoArvoreSoRaizValorNaoExiste() {
 		arvore = builder.montaArvoreSoRaiz();
 
-		arvore.removeNoPorValor(50);
-		assertTrue(arvore.contem(5));
+		arvore.removeNoPorNome("EE");
+		assertTrue(arvore.contem("E"));
 		assertNotNull(arvore.getRaiz());
 	}
 
@@ -306,10 +304,10 @@ class ArvoreBinariaTest {
 
 		arvore = builder.montaArvoreRaizDoisFilhoDireitoUmEsquerdo();
 
-		arvore.removeNoPorValor(7);
+		arvore.removeNoPorNome("G");
 
-		assertEquals(5, arvore.getRaiz().getValor());
-		assertFalse(arvore.contem(7));
+		assertEquals("E", arvore.getRaiz().getNome());
+		assertFalse(arvore.contem("G"));
 		assertEquals(1, arvore.pegaAlturaDaArvore());
 		
 	}
@@ -319,10 +317,10 @@ class ArvoreBinariaTest {
 
 		arvore = builder.montaArvoreRaizUmFilhoDireitoDoisEsquerdo();
 		
-		arvore.removeNoPorValor(3);
+		arvore.removeNoPorNome("C");
 
-		assertEquals(5, arvore.getRaiz().getValor());
-		assertFalse(arvore.contem(3));
+		assertEquals("E", arvore.getRaiz().getNome());
+		assertFalse(arvore.contem("C"));
 		assertEquals(1, arvore.pegaAlturaDaArvore());
 	}
 
@@ -331,10 +329,10 @@ class ArvoreBinariaTest {
 
 		arvore = builder.montaArvoreCheiaDoisNiveis();
 
-		arvore.removeNoPorValor(5);
+		arvore.removeNoPorNome("E");
 
-		assertEquals(6, arvore.getRaiz().getValor());
-		assertFalse(arvore.contem(5));
+		assertEquals("F", arvore.getRaiz().getNome());
+		assertFalse(arvore.contem("E"));
 	}
 	
 	@Test
@@ -343,10 +341,10 @@ class ArvoreBinariaTest {
 	
 		arvore = builder.montaArvoreEspecialParaExclusao();
 
-		arvore.removeNoPorValor(5);
+		arvore.removeNoPorNome("E");
 		
-		assertEquals(6, arvore.getRaiz().getEsquerdo().getValor());
-		assertFalse(arvore.contem(5));
+		assertEquals("F", arvore.getRaiz().getEsquerdo().getNome());
+		assertFalse(arvore.contem("E"));
 		arvore.imprimir2DArvore();
 	}
 	
