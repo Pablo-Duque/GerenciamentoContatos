@@ -84,7 +84,7 @@ public class ArvoreBinariaBusca {
 		
 		No atual = raiz;
 		while (atual != null) {
-			if (nomeBuscado == atual.getNome()) {
+			if (nomeBuscado.compareTo(atual.getNome()) == 0) {
 				return atual;
 			} else if (nomeBuscado.compareTo(atual.getNome()) < 0) {
 				atual = atual.getEsquerdo();
@@ -101,33 +101,30 @@ public class ArvoreBinariaBusca {
 	}
 
 	public void adicionaNo(String nome, String telefone) {
-		
+
 		if (raiz == null) {
 			raiz = new No(new Contato(nome, telefone), null, null);
 		} else {
 			No atual = raiz;
 			while (true) {
-				if (nome.compareTo(atual.getNome()) < 0) {
+				if (nome.compareTo(atual.getNome()) <= 0) {
 					if (atual.getEsquerdo() == null) {
 						atual.setEsquerdo(new No(new Contato(nome, telefone), null, null));
 						return;
 					}
 					atual = atual.getEsquerdo();
-				} else if (nome.compareTo(atual.getNome()) > 0) {
+				} else {
 					if (atual.getDireito() == null) {
 						atual.setDireito(new No(new Contato(nome, telefone), null, null));
 						return;
 					}
 					atual = atual.getDireito();
-				} else {
-					return; // Valor já existe na árvore, não faz nada
 				}
 			}
 		}
 	}
 
 	public void removeNoPorNome(String nomeARemover) {
-
 		No pai = null;
 		No atual = raiz;
 		while (atual != null) {
@@ -207,9 +204,7 @@ public class ArvoreBinariaBusca {
 
 	private void percorrerPreOrder(No noReferencia) {
 		if (noReferencia != null) {
-			System.out.println(noReferencia.getCod());
-			System.out.println(noReferencia.getNome());
-			System.out.println(noReferencia.getTelefone());
+			System.out.println(noReferencia.getCod() + " | " + noReferencia.getNome() + "(" + noReferencia.getTelefone() +")");
 			percorrerPreOrder(noReferencia.getEsquerdo());
 			percorrerPreOrder(noReferencia.getDireito());
 		}
@@ -222,9 +217,7 @@ public class ArvoreBinariaBusca {
 	private void percorrerInOrder(No noReferencia) {
 		if (noReferencia != null) {
 			percorrerInOrder(noReferencia.getEsquerdo());
-			System.out.println(noReferencia.getCod());
-			System.out.println(noReferencia.getNome());
-			System.out.println(noReferencia.getTelefone());
+			System.out.println(noReferencia.getCod() + " | " + noReferencia.getNome() + "(" + noReferencia.getTelefone() +")");
 			percorrerInOrder(noReferencia.getDireito());
 		}
 	}
@@ -237,9 +230,7 @@ public class ArvoreBinariaBusca {
 		if (noReferencia != null) {
 			percorrerPosOrder(noReferencia.getEsquerdo());
 			percorrerPosOrder(noReferencia.getDireito());
-			System.out.println(noReferencia.getCod());
-			System.out.println(noReferencia.getNome());
-			System.out.println(noReferencia.getTelefone());
+			System.out.println(noReferencia.getCod() + " | " + noReferencia.getNome() + "(" + noReferencia.getTelefone() +")");
 		}
 	}
 

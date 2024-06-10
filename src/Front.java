@@ -25,11 +25,11 @@ public class Front {
 			        case 2 -> {
 			        	System.out.println("\nDigite o nome do contato: ");
 			        	String nome = obj.next();
-			        	No atual = arvore.pegarNoArvorePorNome(nome);
-			        	
-			        	if(arvore.contem(nome))
+			        				        	
+			        	if(arvore.contem(nome)) {
+			        		No atual = arvore.pegarNoArvorePorNome(nome);
 			        		System.out.println("\nContato buscado: " + atual.getCod() + " | " + atual.getNome() + "(" + atual.getTelefone() +")");
-			        	else
+			        	}else
 			        		System.out.println("\nContato nao encontrado!");
 			        }
 			        case 3 -> arvore.imprimirInOrder();
@@ -43,8 +43,10 @@ public class Front {
 			        	}else
 			        		System.out.println("\nContato nao encontrado!");
 			        }
-			        default -> System.out.println("\nSaindo...");
+			        case 5 -> System.out.println("\nSaindo...");
+			        default -> System.out.println("\nOpcao invalida!"); 
 			}
+			    System.out.println("\n");
 			}
 		}
 	}
